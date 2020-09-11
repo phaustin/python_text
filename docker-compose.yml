@@ -34,9 +34,9 @@ services:
 
     # command: jupyterhub-singleuser
 
-# force the network name to be "jupyterhub"
+# set the network name
 # this needs to be matched in jupyterhub_config.py by:
-# c.DockerSpawner.network_name = 'jupyterhub'
+# c.DockerSpawner.network_name = 'textbook_network'
 networks:
     textbook_network:
       driver: bridge
