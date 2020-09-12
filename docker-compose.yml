@@ -1,24 +1,27 @@
 version: '3.8'
 
 services:
-  content:
-    container_name: book_content
-    build:
-      context: .
-      dockerfile: content.dockerfile
-    image: phaustin/problem_solving_content:sep10
+
+  webserver:
+    image: httpd:2.4
+    container_name: webserver
+    ports:
+      - "${TEXT_PORT}:80"
     volumes:
-      - type: volume
-        source: problem-solving-notebooks
-        target: /srv/problem_solving_notebooks
-  
+      - /Users/phil/repos/python_text/notebooks_source:/srv/notebooks
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    command: bash -c
+            "cp -a /srv/notebooks/_build/html/* /usr/local/apache2/htdocs/.
+             && httpd-foreground
+            "
+
   jupyterhub:
     build: hub_image
     image: phaustin/jupyterhub:textbook
     container_name: jupyterhub
     depends_on: [notebook]
     ports:
-      - "8500:8000"
+      - "${NB_PORT}:8000"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
     networks:
@@ -28,9 +31,6 @@ services:
     build: notebook_image
     image: phaustin/notebook:textbook
     container_name: notebook
-    depends_on: [content]
-    volumes:
-      - problem-solving-notebooks:/srv/problem_solving_notebooks
 
     # command: jupyterhub-singleuser
 
@@ -41,9 +41,3 @@ networks:
     textbook_network:
       driver: bridge
       name: textbook_network
-
-volumes:
-  problem-solving-notebooks:
-    name: problem-solving-notebooks
-
-

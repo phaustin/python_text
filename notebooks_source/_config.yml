@@ -14,15 +14,14 @@ execute:
 exclude_patterns: ["*ipynb"]
 
 repository:
-  url: https://github.com/phaustin/Problem-Solving-with-Python-37-Edition.git
+  url: https://github.com/phaustin/Problem-Solving-with-Python-37-Edition
   branch: jb
   path_to_book: notebooks
 
 launch_buttons:
   notebook_interface: "classic" # The interface interactive links will activate ["classic", "jupyterlab"]
-  jupyterhub_url: http://node07.eos.ubc.ca:8000
-  
+  jupyterhub_url: localhost:9500
+
 html:
   home_page_in_navbar: true
-  baseurl: http://node07.eos.ubc.ca:8080
-
+  baseurl: localhost:8500

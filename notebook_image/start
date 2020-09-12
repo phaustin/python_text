@@ -2,20 +2,8 @@
 
 # ==== ONLY EDIT WITHIN THIS BLOCK =====
 
-mkdir -p /srv/notebook_repo
-cd /srv/notebook_repo
-cp -a /srv/problem_solving_notebooks/* /srv/notebook_repo/.
-mkdir -p /srv/notebook_repo/_build/html
-echo "I was here" > /srv/notebook_repo/_build/html/a_file.txt
-git config --global user.email "joyvan@email.com"
-git config --global user.name "Jupyter joyvan"
-git init
-git add -f *
-git commit --quiet -am 'init'
-git log
 mkdir -p ${HOME}/work
 cd ${HOME}/work
-
 
 # ==== ONLY EDIT WITHIN THIS BLOCK =====
 
