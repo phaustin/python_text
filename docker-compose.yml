@@ -1,14 +1,18 @@
+#
+# docker compose variables set in .env
+# also see environmental variables in run_docker.sh
+#
 version: '3.8'
 
 services:
 
   webserver:
     image: httpd:2.4
-    container_name: webserver
+    container_name: ${WEB_CONTAINER_NAME}
     ports:
       - "${TEXT_PORT}:80"
     volumes:
-      - /Users/phil/repos/python_text/notebooks_source:/srv/notebooks
+      - ./notebooks_source:/srv/notebooks
       - "/var/run/docker.sock:/var/run/docker.sock"
     command: bash -c
             "cp -a /srv/notebooks/_build/html/* /usr/local/apache2/htdocs/.
@@ -16,21 +20,24 @@ services:
             "
 
   jupyterhub:
-    build: hub_image
+    build:
+      context: hub_image
     image: phaustin/jupyterhub:textbook
-    container_name: jupyterhub
-    depends_on: [notebook]
+    container_name: ${HUB_CONTAINER_NAME}
+    depends_on:
+      - notebook
     ports:
       - "${NB_PORT}:8000"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
     networks:
-      - textbook_network
+      - ${NETWORK_NAME}
 
   notebook:
-    build: notebook_image
+    build:
+      context: notebook_image
     image: phaustin/notebook:textbook
-    container_name: notebook
+    container_name: ${NOTEBOOK_CONTAINER_NAME}
 
     # command: jupyterhub-singleuser
 
@@ -40,4 +47,4 @@ services:
 networks:
     textbook_network:
       driver: bridge
-      name: textbook_network
+      name: ${NETWORK_NAME}

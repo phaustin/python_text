@@ -1,3 +1,4 @@
+#conda-lock -f environment.yml -p linux-64
 name: notebook
 channels:
   - eoas_ubc
@@ -8,3 +9,20 @@ dependencies:
   - scipy
   # NOTE: pip required for running tests in this repo
   - pip=20
+  - click
+  - git
+  - sphinx=3
+  - jupyter
+  - git
+  - jupytext
+  - sqlalchemy
+  - pyyaml
+  - docutils>=0.15
+  - setuptools
+  - sympy
+  - matplotlib
+  - bokeh
+  - nbformat
+  - nbconvert
+  - nbclient
+  - pillow

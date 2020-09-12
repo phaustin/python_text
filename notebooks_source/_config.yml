@@ -9,14 +9,14 @@ description: >- # this means to ignore newlines until "baseurl:"
   [https://www.amazon.com/dp/1693405415](https://www.amazon.com/dp/1693405415)
 
 execute:
-  execute_notebooks: cache
+  execute_notebooks: "cache"
 
 exclude_patterns: ["*ipynb"]
 
 repository:
-  url: https://github.com/phaustin/Problem-Solving-with-Python-37-Edition
-  branch: jb
-  path_to_book: notebooks
+  url: https://github.com/phaustin/python_text
+  branch: master
+  path_to_book: notebooks_source
 
 launch_buttons:
   notebook_interface: "classic" # The interface interactive links will activate ["classic", "jupyterlab"]

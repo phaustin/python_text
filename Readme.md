@@ -1,30 +1,48 @@
-# python text using an internal git repo
+# A jupyerbook example served from localhost
 
-This is a sample jupyterhub setup for a jupyterbook.  Basic approach:
+## This is a sample jupyterhub setup for a jupyterbook.
 
-1) bind mount two directories -- a github repository for the notebooks (read-only) and
-   a home_dirs repository for persisting user notebooks spawned by docker spawner.
+Basic approach:
 
-2) To try this out on localhost:
+1) The docker-compose.yml file
 
-   ```
-   cp -a notebooks_source git_repo
-   cd git_repo
-   git init
-   git add -f *
-   git commit -m 'init'
-   ```
+- bind mounts `notebooks_source` in this repo to /srv/notebooks in the webserver
+  and copies the book html files to /usr/local/apache2/htdocs
 
-   Then:
+2) the `hub_image/jupyerhub_config.py` file
 
-   a) docker-compose build content  
-   b) docker-compose build jupyterhub  
-   c) docker-compose build notebook
-   d) docker-compose up
+- bind mounts `home_dirs` in this repo to the notebook folder (default /home/joyvan/work)
+  in the notebook container
+  
+- the `run_docker.sh` and .env files set parameters used in `jupyterhub_config.py` and 
+  `docker-compose.yml`
 
-   server should be running on localhost:8500 with dummyAuthenticator
+3) Launching with:
 
-## next steps
+- `./run_docker.sh`  will start the webserver on port ${TEXT_PORT} (default 8500) and the jupyterhub
+  on ${HUB_PORT} (default 9500)
 
-Add apache webserver to serve `_build/html/` files that pull individual notebooks from the
-bind mounted git repo
+4) The github path for the notebooks in this repo needs to be specified in
+   `notebooks_source/_config.yml`
+
+5) so steps to build and deploy after cloning this repo:
+
+   a) Create a local environment by executing:
+
+     ```
+      cd notebook_image
+      conda env create -f environment.yml
+      conda activate notebook
+      pip install -r requirements.txt
+      cd ..
+      jb build notebooks_source
+      ./run_docker.sh
+     ```
+
+  b) point your web browser at `localhost:8500` to see the book  
+  c) right click on the rocketship on a page to get a launch jupyterhub and login  
+  d) right click on the rocketship again to clone the repo and bring up that
+     page in jupyter.
+
+
+6) Next steps -- notebook and image testing, simplify the install process
