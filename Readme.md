@@ -1,4 +1,4 @@
-# A jupyerbook example served from localhost
+# A jupyterbook example served from localhost
 
 ## This is a sample jupyterhub setup for a jupyterbook.
 
@@ -13,8 +13,8 @@ Basic approach:
 
 - bind mounts `home_dirs` in this repo to the notebook folder (default /home/joyvan/work)
   in the notebook container
-  
-- the `run_docker.sh` and .env files set parameters used in `jupyterhub_config.py` and 
+
+- the `run_docker.sh` and .env files set parameters used in `jupyterhub_config.py` and
   `docker-compose.yml`
 
 3) Launching with:
@@ -39,8 +39,8 @@ Basic approach:
       ./run_docker.sh
      ```
 
-  b) point your web browser at `localhost:8500` to see the book  
-  c) right click on the rocketship on a page to get a launch jupyterhub and login  
+  b) point your web browser at `localhost:8500` to see the book
+  c) right click on the rocketship on a page to get a launch jupyterhub and login
   d) right click on the rocketship again to clone the repo and bring up that
      page in jupyter.
 
