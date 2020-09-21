@@ -15,7 +15,7 @@ kernelspec:
 
 +++
 
-## Contents
+**Contents**
 
 +++ {"latex": {"after_cell": "newpage"}}
 

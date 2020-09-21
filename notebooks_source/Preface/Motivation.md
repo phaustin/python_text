@@ -17,7 +17,7 @@ kernelspec:
 
 +++
 
-## Motivation
+**Motivation**
 
 +++
 
