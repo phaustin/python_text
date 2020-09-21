@@ -30,6 +30,7 @@ services:
       - "${NB_PORT}:8000"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
+      - jupyterhub_data:/srv/jupyterhub/data
     networks:
       - ${NETWORK_NAME}
 
@@ -48,3 +49,6 @@ networks:
     textbook_network:
       driver: bridge
       name: ${NETWORK_NAME}
+
+volumes:
+  jupyterhub_data:

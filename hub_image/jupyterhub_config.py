@@ -45,10 +45,7 @@ c.DockerSpawner.notebook_dir = notebook_dir
 #
 # jupyter needs f-string-like syntax in template for user name
 #
-user_string = r"jupyterhub-user-{username}"
-c.DockerSpawner.volumes = {
-    f"{os_environ['HOST_HUB_HOMEDIRS']}/{user_string}": notebook_dir
-}
+c.DockerSpawner.volumes = {"jupyterhub-user-{username}": notebook_dir}
 
 ## Services
 c.JupyterHub.services = [
