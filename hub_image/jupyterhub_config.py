@@ -3,6 +3,14 @@
 import sys
 import os
 
+os_environ = {
+    "HUB_CONTAINER_NAME": "hub_container",
+    "NETWORK_NAME": "textbook_network",
+    "WEB_CONAINER_NAME": "note_container",
+    "NOTEBOOK_CONTAINER_NAME": "note_container",
+    "HOST_HUB_HOMEDIRS": "/Users/phil/repos/python_text/home_dirs",
+}
+
 c = get_config()  # noqa
 c.JupyterHub.authenticator_class = "dummyauthenticator.DummyAuthenticator"
 
@@ -13,7 +21,7 @@ c.JupyterHub.spawner_class = "dockerspawner.DockerSpawner"
 c.JupyterHub.hub_ip = "0.0.0.0"
 # the hostname/ip that should be used to connect to the hub
 # this is usually the hub container's name
-c.JupyterHub.hub_connect_ip = f"{os.environ['HUB_CONTAINER_NAME']}"
+c.JupyterHub.hub_connect_ip = f"{os_environ['HUB_CONTAINER_NAME']}"
 
 # pick a docker image. This should have the same version of jupyterhub
 # in it as our Hub.
@@ -21,7 +29,7 @@ c.JupyterHub.hub_connect_ip = f"{os.environ['HUB_CONTAINER_NAME']}"
 #                                    'pangeo':'phaustin/notebook:textbook'}
 c.DockerSpawner.image = "phaustin/notebook:textbook"
 # tell the user containers to connect to our docker network
-c.DockerSpawner.network_name = f"{os.environ['NETWORK_NAME']}"
+c.DockerSpawner.network_name = f"{os_environ['NETWORK_NAME']}"
 
 # delete containers when the stop
 c.DockerSpawner.remove = True
@@ -39,7 +47,7 @@ c.DockerSpawner.notebook_dir = notebook_dir
 #
 user_string = r"jupyterhub-user-{username}"
 c.DockerSpawner.volumes = {
-    f"{os.environ['HOST_HUB_HOMEDIRS']}/{user_string}": notebook_dir
+    f"{os_environ['HOST_HUB_HOMEDIRS']}/{user_string}": notebook_dir
 }
 
 ## Services
