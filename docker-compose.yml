@@ -18,37 +18,3 @@ services:
             "cp -a /srv/notebooks/_build/html/* /usr/local/apache2/htdocs/.
              && httpd-foreground
             "
-
-  jupyterhub:
-    build:
-      context: hub_image
-    image: phaustin/jupyterhub:textbook
-    container_name: ${HUB_CONTAINER_NAME}
-    depends_on:
-      - notebook
-    ports:
-      - "${NB_PORT}:8000"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-      - jupyterhub_data:/srv/jupyterhub/data
-    networks:
-      - ${NETWORK_NAME}
-
-  notebook:
-    build:
-      context: notebook_image
-    image: phaustin/notebook:textbook
-    container_name: ${NOTEBOOK_CONTAINER_NAME}
-
-    # command: jupyterhub-singleuser
-
-# set the network name
-# this needs to be matched in jupyterhub_config.py by:
-# c.DockerSpawner.network_name = 'textbook_network'
-networks:
-    textbook_network:
-      driver: bridge
-      name: ${NETWORK_NAME}
-
-volumes:
-  jupyterhub_data:
